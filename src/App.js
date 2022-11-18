@@ -35,6 +35,30 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
+  addCredits = (event) =>{
+    event.preventDefault();
+
+    let date = new Date().toISOString();
+    let description = event.target.description.value;
+    let amount = event.target[0].amount.value;
+    let id = this.state.creditList.length
+
+    let newEntry = {
+      'id' : id,
+      'amount' : amount,
+      'description' : description,
+      'date' : date
+    }
+
+    let newBalance = this.state.accountBalance + amount;
+    let newCredits = this.state.creditList;
+    newCredits.push(newEntry);
+    this.setState({
+      accountBalance : newBalance,
+      creditList : newCredits
+    });
+  }
+
   // Create Routes and React elements to be rendered using React components
   render() {  
     // Create React elements and pass input props to components
@@ -44,6 +68,8 @@ class App extends Component {
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
     const DebitsComponent = () => (<Debits debits={this.state.debitList} />) 
+    const CreditsComponent = () => (<Credits credits={this.state.creditList} />) 
+
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
@@ -52,7 +78,7 @@ class App extends Component {
           <Route exact path="/" render={HomeComponent}/>
           <Route exact path="/userProfile" render={UserProfileComponent}/>
           <Route exact path="/login" render={LogInComponent}/>
-          <Route exact path="/credits" render={Credits}/>
+          <Route exact path="/credits" render={CreditsComponent}/>
           <Route exact path="/debits" render={DebitsComponent}/>
         </div>
       </Router>
