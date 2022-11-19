@@ -50,7 +50,7 @@ class App extends Component {
     this.setState({
       creditList : credits.data,
       debitList : debits.data,
-      accountBalance : debitTotal - creditTotal
+      accountBalance : Number(debitTotal - creditTotal).toFixed(2)
     })
   }
 
@@ -82,8 +82,34 @@ class App extends Component {
     let newCredits = this.state.creditList;
     newCredits.push(newEntry);
     this.setState({
-      accountBalance : newBalance,
+      accountBalance : newBalance.toFixed(2),
       creditList : newCredits
+    });
+  }
+
+  addDebits = (event) =>{
+    console.log("hello");
+
+    event.preventDefault();
+
+    let date = new Date().toISOString();
+    let description = event.target.description.value;
+    let amount = event.target.amount.value;
+    let id = this.state.debitList.length
+
+    let newEntry = {
+      'id' : id,
+      'amount' : amount.toFixed(2),
+      'description' : description,
+      'date' : date
+    }
+
+    let newBalance = Number(this.state.accountBalance) + Number(amount);
+    let newDebits = this.state.debitList;
+    newDebits.push(newEntry);
+    this.setState({
+      accountBalance : newBalance.toFixed(2),
+      debitList : newDebits
     });
   }
 
@@ -95,7 +121,7 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
-    const DebitsComponent = () => (<Debits debits={this.state.debitList} accountBalance={this.state.accountBalance}/>) 
+    const DebitsComponent = () => (<Debits debits={this.state.debitList} addDebits={this.addDebits} accountBalance={this.state.accountBalance}/>) 
     const CreditsComponent = () => (<Credits credits={this.state.creditList} addCredits={this.addCredits} accountBalance={this.state.accountBalance}/>) 
 
 
