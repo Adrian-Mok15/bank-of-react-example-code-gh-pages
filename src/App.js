@@ -82,7 +82,7 @@ class App extends Component {
     let newCredits = this.state.creditList;
     newCredits.push(newEntry);
     this.setState({
-      accountBalance : newBalance.toFixed(2),
+      accountBalance : Number(newBalance).toFixed(2),
       creditList : newCredits
     });
   }
@@ -99,7 +99,7 @@ class App extends Component {
 
     let newEntry = {
       'id' : id,
-      'amount' : amount.toFixed(2),
+      'amount' : Number(amount).toFixed(2),
       'description' : description,
       'date' : date
     }
@@ -108,7 +108,7 @@ class App extends Component {
     let newDebits = this.state.debitList;
     newDebits.push(newEntry);
     this.setState({
-      accountBalance : newBalance.toFixed(2),
+      accountBalance : Number(newBalance).toFixed(2),
       debitList : newDebits
     });
   }
