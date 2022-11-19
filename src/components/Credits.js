@@ -9,10 +9,11 @@ import {Link} from 'react-router-dom';
 const Credits = (props) => {
    
   let creditsView = () =>{
+
     const {credits} = props;
     return credits.map((credit) => {
       let date = credit.date.slice(0,10);
-      return <l1 key={credit.id}>{credit.amount}{credit.description}{date}</l1>
+      return <li key={credit.id}>{credit.amount}{credit.description}{date}</li>
     })
   }
   
@@ -23,7 +24,7 @@ const Credits = (props) => {
       
       {creditsView()}
 
-      <form onSubmit={props.addCredit}>
+      <form onSubmit={props.addCredits}>
         <input type="text" name="description" />
         <input type="number" name="amount" />
         <button type="submit">Add Credit</button>
