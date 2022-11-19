@@ -31,22 +31,27 @@ class App extends Component {
   }
 
   async componentDidMount(){
+
+    //wait for api
     let credits = await axios.get("https://moj-api.herokuapp.com/credits");
     let debits = await axios.get("https://moj-api.herokuapp.com/debits");
 
     let creditTotal = 0;
     let debitTotal = 0;
 
+    //sum all credit elements
     for(let i = 0; i < credits.data.length; ++i){
       console.log(credits.data[i].amount)
       creditTotal += credits.data[i].amount;
     }
 
+    //sum all debit elements
     for(let i = 0; i < debits.data.length; ++i){
       console.log(debits.data[i].amount)
       debitTotal += debits.data[i].amount;
     }
 
+    //update state
     this.setState({
       creditList : credits.data,
       debitList : debits.data,
@@ -66,6 +71,7 @@ class App extends Component {
 
     event.preventDefault();
 
+    //create variables to store new object
     let date = new Date().toISOString();
     let description = event.target.description.value;
     let amount = event.target.amount.value;
@@ -78,6 +84,7 @@ class App extends Component {
       'date' : date
     }
 
+    //add new balance and update state
     let newBalance = Number(this.state.accountBalance) - Number(amount);
     let newCredits = this.state.creditList;
     newCredits.push(newEntry);
@@ -92,6 +99,7 @@ class App extends Component {
 
     event.preventDefault();
 
+    //create variables to store new object
     let date = new Date().toISOString();
     let description = event.target.description.value;
     let amount = event.target.amount.value;
@@ -104,6 +112,7 @@ class App extends Component {
       'date' : date
     }
 
+    //add new balance and update state
     let newBalance = Number(this.state.accountBalance) + Number(amount);
     let newDebits = this.state.debitList;
     newDebits.push(newEntry);

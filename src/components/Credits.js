@@ -9,15 +9,15 @@ import {Link} from 'react-router-dom';
 const Credits = (props) => {
    
   let creditsView = () =>{
-
+  // Create the list of credit items
     const {credits} = props;
-    return credits.map((credit) => {
+    return credits.map((credit) => {  // Extract "id", "amount", "description" and "date" properties of each debits JSON array element
       let date = credit.date.slice(0,10);
       return <li key={credit.id}> {credit.amount} {credit.description} {date}</li>
     })
   }
   
-  
+  // Render the list of Credit items and a form to input new Credit item
   return (
     <div>
       <h1>Credits</h1>
