@@ -78,7 +78,7 @@ class App extends Component {
       'date' : date
     }
 
-    let newBalance = this.state.accountBalance + amount;
+    let newBalance = Number(this.state.accountBalance) - Number(amount);
     let newCredits = this.state.creditList;
     newCredits.push(newEntry);
     this.setState({
